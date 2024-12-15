@@ -18,9 +18,11 @@ struct ContentView: View {
     @State private var model = Model()
     @State private var selection: Set<Item.ID> = []
     @State private var editMode: EditMode = .inactive
+    // Always show 2 columns
+    @State private var columnVisibility = NavigationSplitViewVisibility.doubleColumn
 
     var body: some View {
-        NavigationSplitView(columnVisibility: .constant(.doubleColumn)) {
+        NavigationSplitView(columnVisibility: $columnVisibility) {
             List(selection: $selection) {
                 ForEach(model.items, id: \.id) { item in
                     ItemView(item: item)
@@ -28,6 +30,10 @@ struct ContentView: View {
                 .onDelete(perform: deleteItems)
             }
             .navigationTitle("All items")
+            // Make room in detail view for column
+            .navigationSplitViewStyle(.balanced)
+            // Uncomment if you want to remove the sidebar toggle
+            // .toolbar(removing: .sidebarToggle)
             .toolbar {
                 EditButton()
             }
