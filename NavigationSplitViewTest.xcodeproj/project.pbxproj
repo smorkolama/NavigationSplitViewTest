@@ -7,13 +7,13 @@
 	objects = {
 
 /* Begin PBXFileReference section */
-		7A78C5FB2D0CA77A0012B580 /* NavigationTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NavigationTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		7A78C5FB2D0CA77A0012B580 /* NavigationSplitViewTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NavigationSplitViewTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		7A78C5FD2D0CA77A0012B580 /* NavigationTest */ = {
+		7A78C5FD2D0CA77A0012B580 /* NavigationSplitViewTest */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			path = NavigationTest;
+			path = NavigationSplitViewTest;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -32,7 +32,7 @@
 		7A78C5F22D0CA77A0012B580 = {
 			isa = PBXGroup;
 			children = (
-				7A78C5FD2D0CA77A0012B580 /* NavigationTest */,
+				7A78C5FD2D0CA77A0012B580 /* NavigationSplitViewTest */,
 				7A78C5FC2D0CA77A0012B580 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -40,7 +40,7 @@
 		7A78C5FC2D0CA77A0012B580 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				7A78C5FB2D0CA77A0012B580 /* NavigationTest.app */,
+				7A78C5FB2D0CA77A0012B580 /* NavigationSplitViewTest.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -48,9 +48,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		7A78C5FA2D0CA77A0012B580 /* NavigationTest */ = {
+		7A78C5FA2D0CA77A0012B580 /* NavigationSplitViewTest */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 7A78C6092D0CA7830012B580 /* Build configuration list for PBXNativeTarget "NavigationTest" */;
+			buildConfigurationList = 7A78C6092D0CA7830012B580 /* Build configuration list for PBXNativeTarget "NavigationSplitViewTest" */;
 			buildPhases = (
 				7A78C5F72D0CA77A0012B580 /* Sources */,
 				7A78C5F82D0CA77A0012B580 /* Frameworks */,
@@ -61,13 +61,13 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				7A78C5FD2D0CA77A0012B580 /* NavigationTest */,
+				7A78C5FD2D0CA77A0012B580 /* NavigationSplitViewTest */,
 			);
-			name = NavigationTest;
+			name = NavigationSplitViewTest;
 			packageProductDependencies = (
 			);
 			productName = NavigationTest;
-			productReference = 7A78C5FB2D0CA77A0012B580 /* NavigationTest.app */;
+			productReference = 7A78C5FB2D0CA77A0012B580 /* NavigationSplitViewTest.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -85,7 +85,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 7A78C5F62D0CA77A0012B580 /* Build configuration list for PBXProject "NavigationTest" */;
+			buildConfigurationList = 7A78C5F62D0CA77A0012B580 /* Build configuration list for PBXProject "NavigationSplitViewTest" */;
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -99,7 +99,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				7A78C5FA2D0CA77A0012B580 /* NavigationTest */,
+				7A78C5FA2D0CA77A0012B580 /* NavigationSplitViewTest */,
 			);
 		};
 /* End PBXProject section */
@@ -251,15 +251,15 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"NavigationTest/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"NavigationSplitViewTest/Preview Content\"";
 				DEVELOPMENT_TEAM = DY5CLZADYD;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -280,15 +280,15 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"NavigationTest/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"NavigationSplitViewTest/Preview Content\"";
 				DEVELOPMENT_TEAM = DY5CLZADYD;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -305,7 +305,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		7A78C5F62D0CA77A0012B580 /* Build configuration list for PBXProject "NavigationTest" */ = {
+		7A78C5F62D0CA77A0012B580 /* Build configuration list for PBXProject "NavigationSplitViewTest" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				7A78C6072D0CA7830012B580 /* Debug */,
@@ -314,7 +314,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		7A78C6092D0CA7830012B580 /* Build configuration list for PBXNativeTarget "NavigationTest" */ = {
+		7A78C6092D0CA7830012B580 /* Build configuration list for PBXNativeTarget "NavigationSplitViewTest" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				7A78C60A2D0CA7830012B580 /* Debug */,
