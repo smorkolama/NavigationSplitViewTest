@@ -8,6 +8,13 @@
 import SwiftUI
 
 struct ContentView: View {
+
+    enum DetailViewState {
+        case selectedItem(Item)
+        case none
+        case editing
+    }
+
     @State private var model = Model()
     @State private var selection: Set<Item.ID> = []
     @State private var editMode: EditMode = .inactive
@@ -51,16 +58,30 @@ struct ContentView: View {
                 print("Selection \(oldValue) -> \(newValue)")
             }
         } detail: {
-            if editMode.isEditing {
+            switch detailViewState {
+            case .selectedItem(let item):
+                DetailView(item: item)
+            case .none:
+                // You won't see this due to auto-selection of first item
+                Text("Please select a person")
+            case .editing:
                 Text("Editing")
                 // alternative could be: EmptyView()
             }
-            else if let item = model.items.first(where: { $0.id == selection.first }) {
-                DetailView(item: item)
-            } else {
-                Text("Please select a person")
-            }
         }
+    }
+
+    // MARK: - Detail view state
+
+    private var detailViewState: DetailViewState {
+        if editMode.isEditing {
+            return .editing
+        }
+        else if let item = model.items.first(where: { $0.id == selection.first }) {
+            return .selectedItem(item)
+        }
+
+        return .none
     }
 
     // MARK: - Selection
