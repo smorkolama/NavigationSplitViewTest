@@ -7,54 +7,10 @@
 
 import SwiftUI
 
-
-struct Item: Identifiable, Equatable {
-    var id: String
-    let name: String
-    let description: String
-}
-
-class Model: ObservableObject {
-    @Published var items: [Item] = [
-        Item(id: "1", name: "Henkie Test", description: "Really nice guy"),
-        Item(id: "2", name: "Some Dude", description: "Really short guy"),
-        Item(id: "3", name: "More Guy", description: "Really long guy"),
-        Item(id: "4", name: "Another Guy", description: "Really handsome guy"),
-        Item(id: "5", name: "Yet Another Guy", description: "Really smart guy"),
-    ]
-}
-
-
-struct ItemView: View {
-    var item: Item
-
-    var body: some View {
-        VStack {
-            Text(item.name)
-        }
-    }
-}
-
-struct DetailView: View {
-    var item: Item
-
-    var body: some View {
-        VStack {
-            Text(item.name)
-            Text(item.description)
-        }
-        .navigationTitle("Details for \(item.name)")
-    }
-}
-
 struct ContentView: View {
     @State private var model = Model()
     @State private var selection: Set<Item.ID> = []
     @State private var editMode: EditMode = .inactive
-
-    init() {
-        print("INIT")
-    }
 
     var body: some View {
         NavigationSplitView(columnVisibility: .constant(.doubleColumn)) {
@@ -62,31 +18,32 @@ struct ContentView: View {
                 ForEach(model.items, id: \.id) { item in
                     ItemView(item: item)
                 }
-                .onDelete(perform: removeRows)
+                .onDelete(perform: deleteItems)
             }
-            .navigationTitle("People")
-            .onAppear {
-                // Auto select first item in list
-                selectFirstItem()
-            }
+            .navigationTitle("All items")
             .toolbar {
                 EditButton()
             }
             .toolbar {
-                // Delete selection
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    if editMode == .active {
+                // Show 'Delete' button in edit mode
+                if editMode == .active {
+                    ToolbarItem(placement: .topBarLeading) {
                         Button(action: deleteSelection) {
                             Label("Delete", systemImage: "trash")
                         }
-                        .disabled(selection.isEmpty) // Disable if nothing is selected
+                        // Disable if nothing is selected
+                        .disabled(selection.isEmpty)
                     }
                 }
             }
+            .onAppear {
+                // Auto select first item in list
+                selectFirstItem()
+            }
             .environment(\.editMode, $editMode) // Bind edit mode
             .onChange(of: editMode) { _, newMode in
+                // Detect when edit mode finishes
                 if newMode == .inactive {
-                    // Detect when edit mode finishes
                     selectFirstItem()
                 }
             }
@@ -96,7 +53,7 @@ struct ContentView: View {
         } detail: {
             if editMode.isEditing {
                 Text("Editing")
-//                EmptyView()
+                // alternative could be: EmptyView()
             }
             else if let item = model.items.first(where: { $0.id == selection.first }) {
                 DetailView(item: item)
@@ -106,34 +63,9 @@ struct ContentView: View {
         }
     }
 
-    // Used in swipe to delete
-    func removeRows(at offsets: IndexSet) {
-        for offset in offsets {
-            if let item = model.items[safe: offset] {
-                selection.remove(item.id)
-            }
-        }
+    // MARK: - Selection
 
-        model.items.remove(atOffsets: offsets)
-
-        if editMode != .active && selection.isEmpty {
-            selectFirstItem()
-        }
-    }
-
-    // Used in delete selection button
-    func deleteSelection() {
-        let selectedIDs = selection
-        // Determine the indexes of selected items
-        let offsets = IndexSet(model.items.enumerated().compactMap { index, item in
-            selectedIDs.contains(item.id) ? index : nil
-        })
-
-        // Perform the removal
-        removeRows(at: offsets)
-    }
-
-    func selectFirstItem() {
+    private func selectFirstItem() {
         if let firstItem = model.items.first {
             print("Set selection to \(firstItem.id)")
             Task {
@@ -141,15 +73,39 @@ struct ContentView: View {
             }
         }
     }
+
+    // MARK: - Delete items
+
+    // Used in swipe to delete
+    private func deleteItems(at offsets: IndexSet) {
+        // Remove items from selection
+        for offset in offsets {
+            if let item = model.items[safe: offset] {
+                selection.remove(item.id)
+            }
+        }
+
+        // Remove from list
+        model.items.remove(atOffsets: offsets)
+
+        // Check if first item needs to be re-selected
+        if editMode != .active && selection.isEmpty {
+            selectFirstItem()
+        }
+    }
+
+    // Used in delete selection button
+    private func deleteSelection() {
+        // Determine the indexes of selected items
+        let offsets = IndexSet(model.items.enumerated().compactMap { index, item in
+            selection.contains(item.id) ? index : nil
+        })
+
+        // Perform the removal
+        deleteItems(at: offsets)
+    }
 }
 
 #Preview {
     ContentView()
-}
-
-extension Collection {
-    /// Returns the element at the specified index if it is within bounds, otherwise nil.
-    subscript (safe index: Index) -> Element? {
-        return indices.contains(index) ? self[index] : nil
-    }
 }
