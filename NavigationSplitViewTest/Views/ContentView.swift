@@ -50,8 +50,10 @@ struct ContentView: View {
                 }
             }
             .onAppear {
-                // Auto select first item in list
-                selectFirstItem()
+                // Auto select first item in list when nothing is selected
+                if selection.isEmpty {
+                    selectFirstItem()
+                }
             }
             .environment(\.editMode, $editMode) // Bind edit mode
             .onChange(of: editMode) { _, newMode in
