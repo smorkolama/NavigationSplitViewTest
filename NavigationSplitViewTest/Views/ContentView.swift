@@ -95,6 +95,7 @@ struct ContentView: View {
     private func selectFirstItem() {
         if let firstItem = model.items.first {
             print("Set selection to \(firstItem.id)")
+            // TODO: this needs to be in a Task otherwise the selection will not be set, figure out why!
             Task {
                 selection = [firstItem.id]
             }
