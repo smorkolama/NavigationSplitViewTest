@@ -1,5 +1,5 @@
 //
-//  ContentView.swift
+//  TwoColumnView.swift
 //  NavigationSplitViewTest
 //
 //  Created by Benjamin van den Hout on 13/12/2024.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ContentView: View {
+struct TwoColumnView: View {
 
     enum DetailViewState {
         case selectedItem(Item)
@@ -137,5 +137,5 @@ struct ContentView: View {
 }
 
 #Preview {
-    ContentView()
+    TwoColumnView()
 }
