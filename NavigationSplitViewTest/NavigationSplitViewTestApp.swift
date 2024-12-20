@@ -9,9 +9,13 @@ import SwiftUI
 
 @main
 struct NavigationSplitViewTestApp: App {
+    @StateObject private var model = Model()
+
     var body: some Scene {
         WindowGroup {
-            TwoColumnView()
+//            TwoColumnView()
+            ThreeColumnView()
+                .environmentObject(model)
         }
     }
 }

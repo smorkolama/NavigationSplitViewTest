@@ -22,5 +22,5 @@ struct DetailView: View {
 }
 
 #Preview {
-    DetailView(item: Model().items.first!)
+    DetailView(item: Model().categories.first!.items.first!)
 }
