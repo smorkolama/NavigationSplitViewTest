@@ -31,12 +31,22 @@ struct ThreeColumnView: View {
 
     var body: some View {
         NavigationSplitView(columnVisibility: $columnVisibility) {
-            List(model.categories, selection: $selectedCategory) { category in
-                CategoryView(category: category)
-            }
+            List(model.categories, selection: Binding(
+                get: { selectedCategory },
+                set: { newValue in
+                    // On compact size classes like iPhone the selection will
+                    // always be reset to nil when this view becomes visible again.
+                    // Work around this by prevent setting the value to 'nil'
+                    if newValue != nil {
+                        selectedCategory = newValue
+                    }
+                })) { category in
+                    CategoryView(category: category)
+                }
             .navigationTitle("Category")
             .onAppear {
                 if selectedCategory == nil {
+                    print("Category is nil, selecting first")
                     selectFirstCategory()
 
                     // On iPad it looks better if the first item is already selected
