@@ -14,11 +14,22 @@ struct TwoColumnView: View {
     @State private var editMode: EditMode = .inactive
 
     /// Set this to true if you want to select the first item on iPad
-    let autoSelectFirstItemOnPad = true
+    private let autoSelectFirstItemOnPad = true
 
-    // Content
+    /// Content
     @State private var selectedItems: Set<Item.ID> = []
 
+    /// Search text
+    @State private var searchText: String = ""
+
+    /// Item list filtered by search text
+    private var filteredItems: [Item] {
+        if searchText.isEmpty {
+            return model.firstCategory.items
+        } else {
+            return model.firstCategory.items.filter { $0.name.lowercased().contains(searchText.lowercased()) }
+        }
+    }
 
     enum DetailViewState {
         case selectedItem(Item)
@@ -29,7 +40,7 @@ struct TwoColumnView: View {
     var body: some View {
         NavigationSplitView(columnVisibility: $columnVisibility) {
             List(selection: $selectedItems) {
-                ForEach(model.firstCategory.items, id: \.id) { item in
+                ForEach(filteredItems, id: \.id) { item in
                     ItemView(item: item)
                 }
                 .onDelete(perform: deleteItems)
@@ -72,18 +83,26 @@ struct TwoColumnView: View {
             .onChange(of: selectedItems) { oldValue, newValue in
                 print("Selection \(oldValue) -> \(newValue)")
             }
+            .onChange(of: searchText, { oldValue, newValue in
+                selectFirstItemOnIpad()
+            })
         } detail: {
             switch detailViewState {
             case .selectedItem(let item):
                 DetailView(item: item)
             case .none:
-                // You won't see this due to auto-selection of first item
-                Text("Please select a person")
+                if searchText.isEmpty {
+                    // You won't see this due to auto-selection of first item
+                    Text("Please select a person")
+                } else {
+                    ContentUnavailableView.search
+                }
             case .editing:
                 Text("Editing")
                 // alternative could be: EmptyView()
             }
         }
+        .searchable(text: $searchText)
     }
 
     // MARK: - Detail view state
@@ -92,7 +111,7 @@ struct TwoColumnView: View {
         if editMode.isEditing {
             return .editing
         }
-        else if let item = model.firstCategory.items.first(where: { $0.id == selectedItems.first }) {
+        else if let item = filteredItems.first(where: { $0.id == selectedItems.first }) {
             return .selectedItem(item)
         }
 
@@ -106,7 +125,7 @@ struct TwoColumnView: View {
             return
         }
 
-        if let firstItem = model.firstCategory.items.first {
+        if let firstItem = filteredItems.first {
             print("Set selection to \(firstItem.id)")
             // TODO: this needs to be in a Task otherwise the selection will not be set, figure out why!
             Task {
